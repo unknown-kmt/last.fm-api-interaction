@@ -16,7 +16,7 @@
     flex-direction: column;
 }
 
-.search_item__list > .search_item {
+.search_item {
     width: 100%;
     height: 40px;
 
@@ -32,7 +32,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
     margin: 0px;
 }
 

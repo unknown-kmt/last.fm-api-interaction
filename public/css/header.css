@@ -2,17 +2,16 @@
     padding-top: 10px;
     padding-bottom: 10px;
 
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-between;
-    flex-direction: row;
     align-items: center;
 
     background-color: #000;
     font-size: 18px;
 }
 
-.header__control img {
+.header__image {
     display: flex;
     background-color: #000;
 }
@@ -24,7 +23,7 @@
     margin-right: 3px;
 }
 
-.header__controls > button {
+.header__button {
     border-width: 0px;
 }
 
@@ -35,7 +34,6 @@
 
 .header__block {
     display: flex;
-    min-width: calc(100% / 3);
 }
 
 .header__logo {
