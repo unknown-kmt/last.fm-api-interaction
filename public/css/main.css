@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: azure;
+}
+
+.app {
+    display: grid;
+    grid-template-rows: min-content 1fr min-content;
+    height: 100vh;
+}
+
+
+.link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: #fff;
+}

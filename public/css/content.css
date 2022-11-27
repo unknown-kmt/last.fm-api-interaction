@@ -1,0 +1,122 @@
+.content {
+    display: flex;
+    background-color: #000;
+}
+
+.mainContent {
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px;
+}
+
+.artists {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.artist__bubble {
+    border: 2px solid #bb0000;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.best_artist__bubble {
+    width: 250px;
+    height: 250px;
+}
+
+.regular_artist__bubble {
+    width: 150px;
+    height: 150px;
+}
+
+.artist__bubble .artist__info {
+    width: 80px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border: 2px solid #bb0000;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    position: absolute;
+    z-index: 1;
+}
+
+.best_track {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+
+    margin-top: 30px;
+    padding: 5px;
+}
+
+.best_track .name {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.best_track .plays {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.split__row {
+    margin-top: 30px;
+
+    display: flex;
+    align-items: stretch;
+}
+
+.split__column {
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+
+    margin: 5px;
+}
+
+.split_name {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 5px 5px;
+    border-radius: 2px;
+}
+
+.split .most_playable {
+    display: flex;
+    flex-direction: column;
+}
+
+.most_playable .most_playable_song {
+    background-color: #1e1e1e;
+    margin-top: 5px;
+    padding: 10px 10px;
+}
+
+.counter_listen {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    border-bottom: 5px solid #1e1e1e;
+    margin-top: 5px;
+    padding: 10px 10px;
+}

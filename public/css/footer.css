@@ -1,0 +1,12 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 40px;
+    background-color: #000;
+    font-size: 18px;
+}
+
+.footer__nav {
+    display: flex;
+    flex-direction: column;
+}

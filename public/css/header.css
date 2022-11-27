@@ -1,0 +1,49 @@
+.header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #000;
+    font-size: 18px;
+}
+
+.header__image {
+    display: flex;
+    background-color: #000;
+}
+
+.header__control {
+    display: flex;
+    align-items: center;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.header__button {
+    border-width: 0px;
+}
+
+.header__link {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.header__block {
+    display: flex;
+}
+
+.header__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
