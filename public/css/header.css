@@ -16,17 +16,6 @@
     background-color: #000;
 }
 
-.header__control {
-    display: flex;
-    align-items: center;
-    margin-left: 3px;
-    margin-right: 3px;
-}
-
-.header__button {
-    border-width: 0px;
-}
-
 .header__link {
     margin-left: 5px;
     margin-right: 5px;

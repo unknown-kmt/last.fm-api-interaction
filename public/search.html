@@ -1,61 +1,57 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Дипломный проект</title>
-        <link rel="stylesheet" href="css/main.css"/>
-        <link rel="stylesheet" href="css/header.css"/>
-        <link rel="stylesheet" href="css/content.css"/>
-        <link rel="stylesheet" href="css/footer.css"/>
-        <link rel="stylesheet" href="css/search.css"/>
-    </head>
-    <body class="app">
-        <header class="header">
-            <div class="header__block header__controls">
-                <button class="header__control header__button"><img class="header__image" src="imgs/music-back.png" height="50" width="40"/></button>
-                <button class="header__control header__button"><img class="header__image" src="imgs/music-play.png" height="50" width="40"/></button>
-                <button class="header__control header__button"><img class="header__image" src="imgs/music-forward.png" height="50" width="40"/></button>
-                <div class="header__control">Играет: </div>
-            </div>
 
-            <div class="header__block header__logo">
-                <a href="/">
-                    <img src="imgs/icon.png" height="28" width="104"/>
-                </a>              
-            </div>
+<head>
+    <meta charset="UTF-8" />
+    <title>Дипломный проект</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/content.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/search.css" />
+</head>
 
-            <div class="header__block header__nav">
-                <a href="search.html" class="header__link link">
-                  Главная
-                </a>
-            </div>
-        </header>
+<body class="app">
+    <header class="header">
+        <div class="header__block"></div>
+
+        <div class="header__block header__logo">
+            <a href="/">
+                <img src="imgs/icon.png" height="28" width="104" />
+            </a>
+        </div>
+
+        <div class="header__block header__nav">
+            <a href="/" class="header__link link">
+                Главная
+            </a>
+        </div>
+    </header>
 
 
-        <main class="content">
-            <div class="mainContent">
-                <div class="search__pane">
-                    <div class="search__field">
-                        <input class="search__input" type="text" id="song_name" name="song_name" placeholder="Название">
-                        <button class="search__button"><img src="imgs/search.png" height="16" width="16"/></button>
-                    </div>
-                    <div class="search_item__list">
-                        <div class="search_item">Результат поиска</div>
-                        <div class="search_item">Результат поиска</div>
-                        <div class="search_item">Результат поиска</div>
-                    </div>
+    <main class="content">
+        <div class="mainContent">
+            <div class="search__pane">
+                <div class="search__field">
+                    <input id="search_input" class="search__input" type="text" id="song_name" name="song_name" placeholder="Название">
+                    <button id="search_button" class="search__button"><img src="imgs/search.png" height="16" width="16" /></button>
                 </div>
+                <div id="found_items" class="search_item__list"></div>
             </div>
-        </main>
+        </div>
+    </main>
 
 
-        <footer class="footer">
-            <div class="footer__copyright">© 2022</div>
-            <nav class="footer__nav">
-                <a href="/" class="footer__link link">
-                    Главная
-                </a>
-            </nav>
-        </footer>
-    </body>
+    <footer class="footer">
+        <div class="footer__copyright">© 2022</div>
+        <nav class="footer__nav">
+            <a href="/" class="footer__link link">
+                Главная
+            </a>
+        </nav>
+    </footer>
+
+    <script type="module" src="js/search.js" defer></script>
+</body>
+
 </html>
