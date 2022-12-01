@@ -1,6 +1,8 @@
-import {fetchSearchTracks, fetchSearchArtists, fetchSearchAlbums} from './dataFetchers.js';
+import { fetchSearch } from './dataFetchers.js';
 
 const foundItemsRoot = document.getElementById('found_items');
+const searchButton = document.getElementById('search_button');
+const searchField = document.getElementById('search_input');
 
 window.onload = bindSearchFields;
 
@@ -8,19 +10,26 @@ window.onload = bindSearchFields;
  * Биндинг элементов страницы поиска
  */
 function bindSearchFields() {
-    const button = document.getElementById('search_button');
-    const field = document.getElementById('search_input');
+    searchButton.addEventListener('click', onSearchClickHandler);
+    searchField.addEventListener('keydown', onSearchButtonPressHandler)
+}
 
-    button.addEventListener('click', () => {
-        if (field.value != "")
-            handleSearch(field.value);
-    });
+/**
+ * Хэндлер нажатия на кнопку поиска
+ */
+function onSearchClickHandler() {
+    if (searchField.value != "")
+        if (!foundItemsRoot.getAttribute("searchActive"))
+            handleSearch(searchField.value);
+}
 
-    field.addEventListener('keydown', (event) => {
-        if (field.value != "")
-            if (event.key === "Enter")
-                handleSearch(field.value);
-    })
+/**
+ * Хэндлер нажатия энтера в строке поиска
+ * @param {Event} event событие нажатия 
+ */
+function onSearchButtonPressHandler(event) {
+    if (event.key === "Enter")
+        onSearchClickHandler()
 }
 
 /**
@@ -42,10 +51,11 @@ export function handleSearchFoundItem(item, itemType) {
  * Обработчик поиска
  * @param {String} request запрос
  */
-async function handleSearch(request) {
-    fetchSearchTracks(request);
-    fetchSearchArtists(request);
-    fetchSearchAlbums(request);
-
+function handleSearch(request) {
+    foundItemsRoot.setAttribute("searchActive", "true");
     foundItemsRoot.innerHTML = "";
+
+    fetchSearch(request).finally(() => {
+        foundItemsRoot.removeAttribute("searchActive");
+    });
 }
