@@ -18,9 +18,8 @@ function bindSearchFields() {
  * Хэндлер нажатия на кнопку поиска
  */
 function onSearchClickHandler() {
-    if (searchField.value != "")
-        if (!foundItemsRoot.getAttribute("searchActive"))
-            handleSearch(searchField.value);
+
+    handleSearch(searchField.value);
 }
 
 /**
@@ -29,7 +28,7 @@ function onSearchClickHandler() {
  */
 function onSearchButtonPressHandler(event) {
     if (event.key === "Enter")
-        onSearchClickHandler()
+        handleSearch()
 }
 
 /**
@@ -37,7 +36,7 @@ function onSearchButtonPressHandler(event) {
  * @param {Object} item найденный элемент
  * @param {String} itemType Тип элемента
  */
-export function handleSearchFoundItem(item, itemType) {
+function handleFoundItem(item, itemType) {
     foundItemsRoot.insertAdjacentHTML('beforeend',
         `<div class="search_item">
             <a href="${item.url}">
@@ -52,10 +51,18 @@ export function handleSearchFoundItem(item, itemType) {
  * @param {String} request запрос
  */
 function handleSearch(request) {
-    foundItemsRoot.setAttribute("searchActive", "true");
-    foundItemsRoot.innerHTML = "";
+    if (searchField.value != "") {
+        if (!foundItemsRoot.getAttribute("searchActive")) {
+            const foundItems = [];
+            fetchSearch(searchField.value, foundItems);
 
-    fetchSearch(request).finally(() => {
-        foundItemsRoot.removeAttribute("searchActive");
-    });
+            foundItemsRoot.setAttribute("searchActive", "true");
+            foundItemsRoot.innerHTML = "";
+
+            fetchSearch(request).finally(() => {
+                foundItemsRoot.removeAttribute("searchActive");
+                foundItems.forEach((item) => handleFoundItem(item.content, item.description));
+            });
+        }
+    }
 }

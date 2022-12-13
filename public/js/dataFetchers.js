@@ -1,5 +1,4 @@
 import { handlePopularArtist, handleMostPlayableTrack, handleTopArtistTopTrack } from './main.js';
-import { handleSearchFoundItem } from './search.js';
 
 const API_KEY = "d4559cbd63cd42bba87704ff80275f4b";
 
@@ -21,7 +20,9 @@ async function createAPIRequest(method, params) {
         query += `&${name}=${value}`;
     }
 
-    return fetch(query).catch((error) => console.log(error));
+    return fetch(query)
+            .then((data) => data.json())
+            .catch((error) => console.log(error));
 }
 
 /**
@@ -30,7 +31,6 @@ async function createAPIRequest(method, params) {
  */
 export async function fetchTopArtists() {
     return createAPIRequest("chart.gettopartists", { "limit": TopArtistsLimit })
-        .then((data) => data.json())
         .then((data) => data.artists)
         .then((artists) => {
             const artistsArr = artists.artist;
@@ -48,7 +48,6 @@ export async function fetchTopArtists() {
  */
 export async function fetchArtistTopTrack(artistMbid) {
     return createAPIRequest("artist.gettoptracks", { "limit": 1, "mbid": artistMbid })
-        .then((data) => data.json())
         .then((data) => data.toptracks)
         .then((toptracks) => handleTopArtistTopTrack(toptracks.track[0]))
 }
@@ -59,7 +58,6 @@ export async function fetchArtistTopTrack(artistMbid) {
  */
 export async function fetchTopTracks() {
     return createAPIRequest("chart.gettoptracks", { "limit": TopTrackLimit })
-        .then((data) => data.json())
         .then((data) => data.tracks)
         .then((tracks) => tracks.track.forEach((track) => handleMostPlayableTrack(track)))
 }
@@ -67,23 +65,25 @@ export async function fetchTopTracks() {
 /**
  * Поиск по ключевой строке
  * @param {String} requestedString запрос
- * @returns {Promise} промис чьё выполнение сигнализирует о выполнении запросов
+ * @param {Array} resultCollector массив результатов
+ * @returns {Promise} промис, чьё выполнение сигнализирует о выполнении запросов
  */
-export async function fetchSearch(requestedString) {
+export async function fetchSearch(requestedString, resultCollector) {
+    const handleFoundItem = function handleFoundItem(item, description) {
+        resultCollector.push({"content": item, "description": description});
+    };
+
     return Promise.all([
         createAPIRequest("track.search", { "track": requestedString, "limit": maxResultsInCategory })
-            .then((data) => data.json())
             .then((data) => data.results.trackmatches.track)
-            .then((tracks) => tracks.forEach((track) => handleSearchFoundItem(track, "Песня"))),
+            .then((tracks) => tracks.forEach((track) => handleFoundItem(track, "Песня"))),
 
         createAPIRequest("album.search", { "album": requestedString, "limit": maxResultsInCategory })
-            .then((data) => data.json())
             .then((data) => data.results.albummatches.album)
-            .then((albums) => albums.forEach((album) => handleSearchFoundItem(album, "Альбом"))),
+            .then((albums) => albums.forEach((album) => handleFoundItem(album, "Альбом"))),
 
         createAPIRequest("artist.search", { "artist": requestedString, "limit": maxResultsInCategory })
-            .then((data) => data.json())
             .then((data) => data.results.artistmatches.artist)
-            .then((artists) => artists.forEach((artist) => handleSearchFoundItem(artist, "Исполнитель")))
+            .then((artists) => artists.forEach((artist) => handleFoundItem(artist, "Исполнитель")))
     ])
 }
