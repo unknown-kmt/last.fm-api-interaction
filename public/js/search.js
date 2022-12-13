@@ -10,16 +10,8 @@ window.onload = bindSearchFields;
  * Биндинг элементов страницы поиска
  */
 function bindSearchFields() {
-    searchButton.addEventListener('click', onSearchClickHandler);
+    searchButton.addEventListener('click', handleSearch);
     searchField.addEventListener('keydown', onSearchButtonPressHandler)
-}
-
-/**
- * Хэндлер нажатия на кнопку поиска
- */
-function onSearchClickHandler() {
-
-    handleSearch(searchField.value);
 }
 
 /**
@@ -48,18 +40,16 @@ function handleFoundItem(item, itemType) {
 
 /**
  * Обработчик поиска
- * @param {String} request запрос
  */
-function handleSearch(request) {
+function handleSearch() {
     if (searchField.value != "") {
         if (!foundItemsRoot.getAttribute("searchActive")) {
             const foundItems = [];
-            fetchSearch(searchField.value, foundItems);
 
             foundItemsRoot.setAttribute("searchActive", "true");
             foundItemsRoot.innerHTML = "";
 
-            fetchSearch(request).finally(() => {
+            fetchSearch(searchField.value, foundItems).finally(() => {
                 foundItemsRoot.removeAttribute("searchActive");
                 foundItems.forEach((item) => handleFoundItem(item.content, item.description));
             });

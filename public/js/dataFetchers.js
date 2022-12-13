@@ -1,5 +1,3 @@
-import { handlePopularArtist, handleMostPlayableTrack, handleTopArtistTopTrack } from './main.js';
-
 const API_KEY = "d4559cbd63cd42bba87704ff80275f4b";
 
 const TopTrackLimit = 5; // максимум получаемых популярных треков
@@ -27,39 +25,38 @@ async function createAPIRequest(method, params) {
 
 /**
  * Получение самых популярных исполнителей
- * @returns {Promise} промис с запросом
+ * @param {Array} artistsCollector массив, куда будут записаны полученные исполнители
+ * @returns {Promise} промис, чьё выполнение сигнализирует о выполнении запроса
  */
-export async function fetchTopArtists() {
+export async function fetchTopArtists(artistsCollector) {
     return createAPIRequest("chart.gettopartists", { "limit": TopArtistsLimit })
         .then((data) => data.artists)
         .then((artists) => {
-            const artistsArr = artists.artist;
-
-            for (let i = 0; i < artistsArr.length; i++) {
-                handlePopularArtist(artistsArr[i], i + 1);
-            }
+            artistsCollector.push(...artists.artist)
         })
 }
 
 /**
  * Получение самого популярного трека исполнителя
  * @param {String} artistMbid mbid исполнителя
- * @returns {Promise} промис с запросом 
+ * @param {Array} trackCollector массив, куда будут записаны полученый трек исполнителя
+ * @returns {Promise} промис, чьё выполнение сигнализирует о выполнении запроса
  */
-export async function fetchArtistTopTrack(artistMbid) {
+export async function fetchArtistTopTrack(artistMbid, trackCollector) {
     return createAPIRequest("artist.gettoptracks", { "limit": 1, "mbid": artistMbid })
         .then((data) => data.toptracks)
-        .then((toptracks) => handleTopArtistTopTrack(toptracks.track[0]))
+        .then((toptracks) => {trackCollector.push(toptracks.track[0])})
 }
 
 /**
  * Получение самый прослушиваемых песен
- * @returns {Promise} промис с запросом  
+ * @param {Array} trackCollector массив, куда будут записаны полученные треки
+ * @returns {Promise} список самый прослушиваемых песен
  */
-export async function fetchTopTracks() {
+export async function fetchTopTracks(trackCollector) {
     return createAPIRequest("chart.gettoptracks", { "limit": TopTrackLimit })
         .then((data) => data.tracks)
-        .then((tracks) => tracks.track.forEach((track) => handleMostPlayableTrack(track)))
+        .then((tracks) => tracks.track.forEach((track) => trackCollector.push(track)));
 }
 
 /**
@@ -69,21 +66,21 @@ export async function fetchTopTracks() {
  * @returns {Promise} промис, чьё выполнение сигнализирует о выполнении запросов
  */
 export async function fetchSearch(requestedString, resultCollector) {
-    const handleFoundItem = function handleFoundItem(item, description) {
+    const handler = function handleFoundItem(item, description) {
         resultCollector.push({"content": item, "description": description});
     };
 
     return Promise.all([
         createAPIRequest("track.search", { "track": requestedString, "limit": maxResultsInCategory })
             .then((data) => data.results.trackmatches.track)
-            .then((tracks) => tracks.forEach((track) => handleFoundItem(track, "Песня"))),
+            .then((tracks) => tracks.forEach((track) => handler(track, "Песня"))),
 
         createAPIRequest("album.search", { "album": requestedString, "limit": maxResultsInCategory })
             .then((data) => data.results.albummatches.album)
-            .then((albums) => albums.forEach((album) => handleFoundItem(album, "Альбом"))),
+            .then((albums) => albums.forEach((album) => handler(album, "Альбом"))),
 
         createAPIRequest("artist.search", { "artist": requestedString, "limit": maxResultsInCategory })
             .then((data) => data.results.artistmatches.artist)
-            .then((artists) => artists.forEach((artist) => handleFoundItem(artist, "Исполнитель")))
+            .then((artists) => artists.forEach((artist) => handler(artist, "Исполнитель")))
     ])
 }
