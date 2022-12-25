@@ -1,24 +1,13 @@
 import { fetchSearch } from './dataFetchers.js';
 
-const foundItemsRoot = document.getElementById('found_items');
-const searchButton = document.getElementById('search_button');
-const searchField = document.getElementById('search_input');
-
-window.onload = bindSearchFields;
-
-/**
- * Биндинг элементов страницы поиска
- */
-function bindSearchFields() {
-    searchButton.addEventListener('click', handleSearch);
-    searchField.addEventListener('keydown', onSearchButtonPressHandler)
-}
+let foundItemsRoot = undefined;
+let searchField = undefined;
 
 /**
  * Хэндлер нажатия энтера в строке поиска
  * @param {Event} event событие нажатия 
  */
-function onSearchButtonPressHandler(event) {
+export function searchButtonPressHandler(event) {
     if (event.key === "Enter")
         handleSearch()
 }
@@ -41,8 +30,11 @@ function handleFoundItem(item, itemType) {
 /**
  * Обработчик поиска
  */
-function handleSearch() {
-    if (searchField.value != "") {
+export function handleSearch() {
+    foundItemsRoot = document.getElementById('found_items');
+    searchField = document.getElementById('search_input');
+
+    if (searchField.value !== "") {
         if (!foundItemsRoot.getAttribute("searchActive")) {
             const foundItems = [];
 

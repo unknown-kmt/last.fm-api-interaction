@@ -4,7 +4,6 @@ const TopTrackLimit = 5; // максимум получаемых популяр
 const TopArtistsLimit = 4; // максимум получаемых популярных исполнителей
 const maxResultsInCategory = 10; // максимальное количество элементов для альбомов, артистов и трэков
 
-
 /**
  * 
  * @param {String} method предмет запроса к api
