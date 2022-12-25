@@ -1,80 +1,54 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Дипломный проект</title>
-        <link rel="stylesheet" href="css/main.css"/>
-        <link rel="stylesheet" href="css/header.css"/>
-        <link rel="stylesheet" href="css/content.css"/>
-        <link rel="stylesheet" href="css/footer.css"/>
-    </head>
-    <body class="app">
-        <header class="header">
-            <div class="header__block header__controls">
-                <button class="header__control header__button"><img class="header__image" src="imgs/music-back.png" height="50" width="40"/></button>
-                <button class="header__control header__button"><img class="header__image" src="imgs/music-play.png" height="50" width="40"/></button>
-                <button class="header__control header__button"><img class="header__image" src="imgs/music-forward.png" height="50" width="40"/></button>
-                <div class="header__control">Играет: </div>
-            </div>
 
-            <div class="header__block header__logo">
-                <a href="/">
-                    <img src="imgs/icon.png" height="28" width="104"/>
-                </a>              
-            </div>
+<head>
+    <meta charset="UTF-8" />
+    <title>Дипломный проект</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/content.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+</head>
 
-            <div class="header__block header__nav">
-                <a href="search.html" class="header__link link">
-                  <img src="imgs/search.png" height="16" width="16"/> Поиск
-                </a>
-            </div>
-        </header>
+<body class="app">
+    <header class="header">
+        <div class="header__block"></div>
+
+        <div class="header__block header__logo">
+            <a href="/">
+                <img src="imgs/icon.png" height="28" width="104" />
+            </a>
+        </div>
+
+        <div class="header__block header__nav">
+            <a href="search.html" class="header__link link">
+                <img src="imgs/search.png" height="16" width="16" /> Поиск
+            </a>
+        </div>
+    </header>
 
 
-        <main class="content">
-            <div class="mainContent">
-                <h1>Популярные исполнители</h1>
-                <div class="artists">
-                  <div class="artist__bubble best_artist__bubble"><span class="artist__info">#1 A</span></div>
-                  <div class="artist__bubble regular_artist__bubble"><span class="artist__info">#2 B</span></div>
-                  <div class="artist__bubble regular_artist__bubble"><span class="artist__info">#3 C</span></div>
-                  <div class="artist__bubble regular_artist__bubble"><span class="artist__info">#4 D</span></div>
-                </div>
-
-                <div class="best_track">
-                  <span class="name">Название</span>
-                  <span class="plays">Проигрываний: 123</span>
-                </div>
-
-                <div class="split__row">
-                  <div class="split__column">
-                      <div class="split_name">Самые прослушиваемые сейчас</div>
-                      <div class="most_playable">
-                          <div class="most_playable_song">Name</div>
-                          <div class="most_playable_song">Name</div>
-                          <div class="most_playable_song">Name</div>
-                          <div class="most_playable_song">Name</div>
-                    </div>
-                  </div>
-                  <div class="split__column">
-                      <div class="split_name">Всего проиграно</div>
-                      <div class="counter_listen">
-                        123
-                      </div>
-                  </div>
-                </div>
-
-            </div>
-        </main>
+    <main class="content">
+        <div class="mainContent">
+            <h1>Популярные исполнители</h1>
+            <div id="most_popular_artists" class="artists"></div>
+            <div id="best_track_of_top_artist" class="best_track"></div>
+            <div class="most_listened__header">Самые прослушиваемые сейчас</div>
+            <div id="most_playable_songs" class="most_playable"></div>
+        </div>
+    </main>
 
 
-        <footer class="footer">
-            <div class="footer__copyright">© 2022</div>
-            <nav class="footer__nav">
-                <a href="search.html" class="footer__link link">
-                  Поиск
-                </a>
-            </nav>
-        </footer>
-    </body>
+    <footer class="footer">
+        <div class="footer__copyright">© 2022</div>
+        <nav class="footer__nav">
+            <a href="search.html" class="footer__link link">
+                Поиск
+            </a>
+        </nav>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
 </html>
