@@ -17,37 +17,28 @@ export const Main = () => {
 
     /**
     * Получение самых популярных исполнителей
-    * @returns {Promise} промис, чьё выполнение сигнализирует о выполнении запроса
     */
-    async function getPupularArtists() {
-        return createAPIRequest("chart.gettopartists", { "limit": TopArtistsLimit })
+    function getPupularArtists() {
+        createAPIRequest("chart.gettopartists", { "limit": TopArtistsLimit })
             .then((data) => data.artists)
             .then((artists) => setTopArtists(artists.artist));
     };
 
     /**
      * Получение самый прослушиваемых песен
-     * @returns {Promise} список самый прослушиваемых песен
      */
-    async function getTopTracks() {
-        return createAPIRequest("chart.gettoptracks", { "limit": TopTrackLimit })
+    function getTopTracks() {
+        createAPIRequest("chart.gettoptracks", { "limit": TopTrackLimit })
             .then((data) => data.tracks)
             .then((tracks) => setTopTracks(tracks.track));
     };
 
-    /**
-     * Запрос контента из last.fm
-     */
-    function requestContent() {
-        Promise.all([
-            getPupularArtists(),
-            getTopTracks()
-        ])
-    }
-
     useEffect(() => {
         if (loaded) return;
-        requestContent();
+
+        getPupularArtists();
+        getTopTracks();
+
         setLoaded(true);
     }, [loaded]);
 
