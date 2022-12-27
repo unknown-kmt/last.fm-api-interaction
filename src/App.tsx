@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 
 import './index.css';
 
-import { initPage } from './api/main';
 import { Main } from './components/Main/Main';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
@@ -15,7 +14,7 @@ export function App() {
             <Routes>
 				<Route path="/" element={<>
                     <Header refers="/search" ref_name="Поиск" />
-                    <Main onLoad={initPage} />
+                    <Main/>
                 </>}></Route>
                 <Route path="search" element={<>
                     <Header refers="/" ref_name="Главная" />
